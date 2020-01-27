@@ -31,21 +31,32 @@
 
 \usepackage{xstring}
 
-	\newcommand{\checkEq}[2]{%
+
+
+% *** Magic Commands! *** %
+	
+	\newcommand{\g}{$g = \pi_{0}/\pi_{1}$}
+	\newcommand{\pizero}{$\pi_{0} = \frac{g}{g+1}$}
+	\newcommand{\pione}{$\pi_{1} = \frac{1}{g+1}$}
+
+	\newcommand{\LambdaSwitch}[1]{%
 		\IfEqCase{#1}{%
-			{a}{$\sqrt{#2}$}%
-			{b}{Hi}%
+			{0}{$\lambda_0=|S_0+l|^2$}%
+			{1}{$\lambda_1=|S_1+l|^2$}%
+			{i}{$\lambda_i=|S_i+l|^2$}%
+			{~}{$\widetilde{\lambda}=\pi_{0}\lambda_{0}+\pi_{1}\lambda_{1}$}%
+			{-}{$\overline{\lambda}=\pi_{0}\sqrt{\lambda_{0}}+\pi_{1}\sqrt{\lambda_{1}}$}%
 			% you can add more cases here as desired
 		}[\PackageError{tree}{Undefined option to tree: #1}{}]%
 	}%
 
-% *** Magic Commands! *** %
-	
-	\newcommand{\g}{g = \pi_{0}/\pi_{1}}
-	\newcommand{\pizero}{\pi_{0} = \frac{g}{g+1}}
-	\newcommand{\pione}{\pi_{1} = \frac{1}{g+1}}
-	\newcommand\tree[2]{\ifthenelse{\equal{#1}{a}}{$\sqrt{#2}$}{Hi}}
-
+	\newcommand{\PiG}[1]{%
+		\IfEqCase{#1}{%
+			{0}{$\pi_{0} = \frac{g}{g+1}$}%
+			{1}{$\pi_{1} = \frac{1}{g+1}$}%
+			% you can add more cases here as desired
+		}[\PackageError{tree}{Undefined option to tree: #1}{}]%
+	}%
 
 % *********************** %
 
@@ -63,7 +74,7 @@
 	\end{equation}	
 
 	\begin{center}
-		\section*{Signal detection over an optical channel $\pizero$ $\g$ \TwoArgs{1}{2} \OneOptOfTwo{1}{2}{3} \OneOptOfTwoWithTest[0]{1} \StarThenArg*{0} 	\checkEq{a}{4}}
+		\section*{Signal detection over an optical channel \pizero \g \TwoArgs{1}{2} \OneOptOfTwo{1}{2}{3} \OneOptOfTwoWithTest[0]{1} \StarThenArg*{0} \LambdaSwitch{1}}
 	
 	\end{center}
 	\vspace{0.5cm}
@@ -79,7 +90,7 @@
 	
 	One approach was given by \textbf{Kennedy} who proposed adding a constant additional coherent state signal $|l\rangle$ 
 	before feeding the signal’s input to the receiver. Doing so generates a coherent state $|S+l\rangle$ which 
-	the receiver in turn outputs a Poisson process with rate $\lambda_i=|S_i+l|^2$.\\
+	the receiver in turn outputs a Poisson process with rate \LambdaSwitch{-}.\\
 
 	An additional approach was given by \textbf{Dolinar} who suggested as continuation to Kennedy’s design to replace the constant 
 	signal with a controlled signal $|l(t)\rangle$ which is chosen adaptively based on the photon arrivals up to that moment, 
