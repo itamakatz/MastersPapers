@@ -25,13 +25,17 @@
 		{$|#2_#1\rangle$}%
 	}
 
+	\newcommand{\logH}[1]{#1log{\left[\frac{1}{#1}\right]}}
+
+	\newcommand{\lambdaWave}{\overline{\lambda}}
+
 	\newcommand{\lambdaSwitch}[1]{%
 		\IfEqCase{#1}{%
-			{0}{$\lambda_0=|S_0+l|^2$}%
-			{1}{$\lambda_1=|S_1+l|^2$}%
-			{i}{$\lambda_i=|S_i+l|^2$}%
-			{~}{$\widetilde{\lambda}=\pi_{0}\lambda_{0}+\pi_{1}\lambda_{1}$}%
-			{-}{$\overline{\lambda}=\pi_{0}\sqrt{\lambda_{0}}+\pi_{1}\sqrt{\lambda_{1}}$}%
+			{0}{\lambda_0=|S_0+l|^2}%
+			{1}{\lambda_1=|S_1+l|^2}%
+			{i}{\lambda_i=|S_i+l|^2}%
+			{~}{\widetilde{\lambda}=\pi_{0}\sqrt{\lambda_{0}}+\pi_{1}\sqrt{\lambda_{1}}}%
+			{-}{\lambdaWave=\pi_{0}\lambda_{0}+\pi_{1}\lambda_{1}}%
 			% you can add more cases here as desired
 		}[\PackageError{tree}{Undefined option to tree: #1}{}]%
 	}%
@@ -71,7 +75,7 @@
 	\end{center}
 	\vspace{0.5cm}
 
-	\piSwitch{0},\quad\g,\quad\lambdaSwitch{1},\quad\piG{0},\quad$\lStar$\\\\\\
+	\piSwitch{0},\quad\g,\quad $\lambdaSwitch{1}$,\quad\piG{0},\quad$\lStar$\\\\\\
 	 
 	Given an optical channel, a signal on that channel can be described as a coherent state denoted by \coherent{S} where  $S\in\mathbb{C}$\\
 
@@ -85,7 +89,7 @@
 	
 	One approach was given by \textbf{Kennedy} who proposed adding a constant additional coherent state signal \coherent{l}
 	before feeding the signal’s input to the receiver. Doing so generates a coherent state \coherent{S+l} which 
-	the receiver in turn outputs a Poisson process with rate \lambdaSwitch{i}.\\
+	the receiver in turn outputs a Poisson process with rate $\lambdaSwitch{i}$.\\
 
 	An additional approach was given by \textbf{Dolinar} who suggested as continuation to Kennedy’s design to replace the constant 
 	signal with a controlled signal \coherent{l(t)} which is chosen adaptively based on the photon arrivals up to that moment, 
@@ -100,7 +104,7 @@
 		Poisson(\lambda) = \left\{ \,
 		\begin{IEEEeqnarraybox}[][c]{l?s}
 			\IEEEstrut
-				0 & w.p. $(1-\lambda_i\Delta)$, \\
+				0 & w.p. $(1-\lambda_i\Delta)$\\
 				1 & w.p. $(\lambda_i\Delta)$
 			\IEEEstrut
 		\end{IEEEeqnarraybox}
@@ -174,18 +178,70 @@
 		\qquad\qquad\qquad=0
 	\end{IEEEeqnarray*}
 
-	\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}\\
+	% \newpage
+	\pagebreak
 
-	Under the assumption that $l=l^{*}=\lStar$, we can deduce the following expresions for the $\lambda$'s: \\
+	In the optimal case where $l=l^{*}=\lStar$, we can calculate the following expressions for the $\lambda$'s:
 
-	\begin{IEEEeqnarray*}{rCl}
-		\IEEEeqnarraymulticol{3}{l}
-		{
-			s
-		}\\*
-		H(Y|X)=\pi_{0}H_{b}(\Delta\lambda_{1}) + \pi_{1}H_{b}(\Delta\lambda_{1})
+	\begin{IEEEeqnarray*}{C}
+		\lambda_{i} = (l^{*}+S_{i})^{2} = (\lStar+S_{i})^{2} = (\frac{S_{0}\pi_{0} - S_{1}\pi_{1}+S_{i}(\pi_{1}-\pi_{0}))}{\pi_{1}-\pi_{0}})
 	\end{IEEEeqnarray*}
 
+	Which yields:
+	% As for $\overline{\lambda}$ we get:
+
+	\begin{IEEEeqnarray*}{r/C/l}
+		\overline{\lambda} 	& = & \pi_{0}\lambda_{0}+\pi_{1}\lambda_{1} 												\\
+							& = & \pi_{0}(\frac{\pi_{1}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2} 
+									+ \pi_{1}(\frac{\pi_{0}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2} 						\\
+							& = & (\pi_{0}\pi_{1}^{2}+\pi_{1}\pi_{0}^{2})(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}
+	\end{IEEEeqnarray*}\\
+
+	Since $\pi_{0}+\pi_{1}=1$ we have that:
+
+	\begin{IEEEeqnarray*}{r/C/l}
+		\pi_{0}\pi_{1}^{2}+\pi_{1}\pi_{0}^{2} 	& = & \pi_{0}\pi_{1}(1-\pi_{0}) +\pi_{1}\pi_{0}^{2}				\\
+												& = & \pi_{0}\pi_{1} - \pi_{0}\pi_{1}^{2} + \pi_{0}\pi_{1}^{2}	\\
+												& = & \pi_{0}\pi_{1}
+	\end{IEEEeqnarray*}\\
+
+	Thus we get:
+
+	\begin{IEEEeqnarray*}{r/C/l}
+		(\pi_{0}\pi_{1}^{2}+\pi_{1}\pi_{0}^{2})(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2} & = & \pi_{0}\pi_{1}(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}
+	\end{IEEEeqnarray*}\\
+	
+	Overall we get the following:\\
+
+	\begin{equation*}
+		= \left\{ \,
+		\begin{IEEEeqnarraybox}[][c]{l"s}
+			\IEEEstrut
+				\lambda_{0} = (\frac{\pi_{1}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}							\\
+				\lambda_{1} = (\frac{\pi_{0}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}							\\
+				\overline{\lambda} = \pi_{0}\pi_{1}(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}
+			\IEEEstrut
+		\end{IEEEeqnarraybox}
+		\right.
+		\label{eq:example_left_right1}
+	\end{equation*}\\
+
+	At this point we can calculate the mutual information in the optimal case:
+
+	\begin{IEEEeqnarray*}{r/C/l}
+		I 	& = & H(Y) - H(Y|X)\\
+			& = & H_{b}[\lambdaWave\Delta]-\pi_{0}H_{b}(\lambda_{0}\Delta)-\pi_{1}H_{b}(\lambda_{1}\Delta) 	\\
+			& = & \logH{\lambdaWave}-\pi_{0}\logH{\lambda_{0}}-\pi_{1}\logH{\lambda_{1}} 					\\
+			& = & \logH{\pi_{0}\pi_{1}(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}} 							\\
+			&   &	- \pi_{0}\logH{(\frac{\pi_{1}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}} 						\\
+			&   &	- \pi_{1}\logH{(\frac{\pi_{0}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}} 						\\
+			& = & \pi_{0}\pi_{1}(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2} 
+					\left(
+						- \log{\pi_{0}\pi_{1}(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}}
+						+ \pi_{0}\log{(\frac{\pi_{1}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}}
+						+ \pi_{1}\log{(\frac{\pi_{0}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}}
+					\right)
+	\end{IEEEeqnarray*}\\
 
 \end{document}
 
@@ -211,5 +267,14 @@
 	% 	{Use #2 with a star}
 	% 	{Use #2 without a star}%
 	% }
+
+	% IEEE
+
+		% \> manually unary to binary
+		% {} manually binary to unary
+
+		% Spaces:
+		% added by . and / and ? and " in increasing order.
+
 
 % ************* %
