@@ -221,7 +221,7 @@
 	Thus we get:
 
 	\begin{IEEEeqnarray*}{r/C/l}
-		(\pi_{0}\pi_{1}^{2}+\pi_{1}\pi_{0}^{2})\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2} & = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}
+		(\pi_{0}\pi_{1}^{2}+\pi_{1}\pi_{0}^{2})\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2} & = & \pi_{0}\pi_{1}\left(\frac{S_{0}-S_{1}}{\pi_{1}-\pi_{0}}\right)^{2}
 	\end{IEEEeqnarray*}\\
 	
 	Overall we get the following:\\
@@ -234,7 +234,7 @@
 		\right.}
 		& \lambda_{1} 			& = & \left(\frac{\pi_{0}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}
 		\\*
-		&	\overline{\lambda} 	& = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}
+		&	\overline{\lambda} 	& = & \pi_{0}\pi_{1}\left(\frac{S_{0}-S_{1}}{\pi_{1}-\pi_{0}}\right)^{2}
 	\end{IEEEeqnarray*}
 
 	\begin{equation*}
@@ -247,7 +247,7 @@
 				\IEEEstrut
 					\lambda_{0} = \left(\frac{\pi_{1}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}							\\
 					\lambda_{1} = \left(\frac{\pi_{0}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}							\\
-					\overline{\lambda} = \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}
+					\overline{\lambda} = \pi_{0}\pi_{1}\left(\frac{S_{0}-S_{1}}{\pi_{1}-\pi_{0}}\right)^{2}
 				\IEEEstrut
 			\end{IEEEeqnarraybox}
 			\right.
@@ -259,20 +259,20 @@
 		I 	& = & H(Y) - H(Y|X)
 \\			& = & H_{b}[\lambdaWave\Delta]-\pi_{0}H_{b}(\lambda_{0}\Delta)-\pi_{1}H_{b}(\lambda_{1}\Delta)
 \\			& = & \logH{\lambdaWave}-\pi_{0}\logH{\lambda_{0}}-\pi_{1}\logH{\lambda_{1}}
-\\			& = & \logH{\pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}}
+\\			& = & \logH{\pi_{0}\pi_{1}\left(\frac{S_{0}-S_{1}}{\pi_{1}-\pi_{0}}\right)^{2}}
 \\*			&   &		- \> \pi_{0}\logH{\left(\frac{\pi_{1}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}}
 \\*			&   &		- \> \pi_{1}\logH{\left(\frac{\pi_{0}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}}
-\\			& = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}
+\\			& = & \pi_{0}\pi_{1}\left(\frac{S_{0}-S_{1}}{\pi_{1}-\pi_{0}}\right)^{2}
 \\*			&   &		\left( 	- \log{\left[\pi_{0}\pi_{1}\left((\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})\right)^{2}\right]}		\right.
 \\*			&   &				+ \> \pi_{0}\log{\left[\left(\frac{\pi_{1}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})\right)^{2}\right]}
 \\*			&   &		\left. 	+ \> \pi_{1}\log{\left[\left(\frac{\pi_{0}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})\right)^{2}\right]}	\right)
-\\			& = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}
+\\			& = & \pi_{0}\pi_{1}\left(\frac{S_{0}-S_{1}}{\pi_{1}-\pi_{0}}\right)^{2}
 \\*			&   &		\left(	- \log{[\pi_{0}\pi_{1}]} - \cancel{\log{\left[\left((\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})\right)^{2}\right]}}				\right.
 \\*			&   &				+ \> 2\pi_{0}\log{[\pi_{0}]} + \cancel{\pi_{0}\log{\left[\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})\right)^{2}\right]}}
 \\*			&   &		\left.	+ \> 2\pi_{1}\log{[\pi_{1}]} + \cancel{\pi_{1}\log{\left[\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})\right)^{2}\right]}} 	\right)
-\\			& = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2} ( - log{[\pi_{0}\pi_{1}]} + 2\pi_{0}\log{[\pi_{0}]} + \> 2\pi_{1}\log{[\pi_{1}]})
-\\			& = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2} ( - log{[\pi_{0}]} - log{[\pi_{1}]} + 2\pi_{0}\log{[\pi_{0}]} + \> 2\pi_{1}\log{[\pi_{1}]})
-\\			& = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2} ( (2\pi_{0}-1)log{[\pi_{0}]} + (2\pi_{1}-1)log{[\pi_{1}]})
+\\			& = & \pi_{0}\pi_{1}\left(\frac{S_{0}-S_{1}}{\pi_{1}-\pi_{0}}\right)^{2} ( - log{[\pi_{0}\pi_{1}]} + 2\pi_{0}\log{[\pi_{0}]} + \> 2\pi_{1}\log{[\pi_{1}]})
+\\			& = & \pi_{0}\pi_{1}\left(\frac{S_{0}-S_{1}}{\pi_{1}-\pi_{0}}\right)^{2} ( - log{[\pi_{0}]} - log{[\pi_{1}]} + 2\pi_{0}\log{[\pi_{0}]} + \> 2\pi_{1}\log{[\pi_{1}]})
+\\			& = & \pi_{0}\pi_{1}\left(\frac{S_{0}-S_{1}}{\pi_{1}-\pi_{0}}\right)^{2} ( (2\pi_{0}-1)log{[\pi_{0}]} + (2\pi_{1}-1)log{[\pi_{1}]})
 	\end{IEEEeqnarray*}
 	Again, since $\pi_{0}+\pi_{1}=1$ we have:
 	\begin{equation*}
@@ -287,7 +287,9 @@
 	\end{equation*}
 	So we get:
 	\begin{IEEEeqnarray*}{r/C/l}
-		& = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2} ( (\pi_{0}-\pi_{1})(log{[\pi_{0}]} - log{[\pi_{1}]}))
+		& = & \pi_{0}\pi_{1}\left(\frac{S_{0}-S_{1}}{\pi_{1}-\pi_{0}}\right)^{2} ( (\pi_{0}-\pi_{1})(log{[\pi_{0}]} - log{[\pi_{1}]}))
+\\		& = & \> -\pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})^{2}}{\pi_{1}-\pi_{0}}\right) log{\left[\frac{\pi_{0}}{\pi_{1}}\right]}
+\\		& = & \> \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})^{2}}{\pi_{0}-\pi_{1}}\right) log{\left[\frac{\pi_{0}}{\pi_{1}}\right]}
 	\end{IEEEeqnarray*}
 
 	
