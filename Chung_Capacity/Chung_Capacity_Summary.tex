@@ -9,8 +9,18 @@
 \usepackage{sectsty}
 \usepackage{xstring}
 \usepackage{xparse}
-\graphicspath{ {./images/} }
 
+\usepackage{mleftright}
+\mleftright
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+
+\usepackage{cancel}
+
+\interdisplaylinepenalty=0
+
+\graphicspath{ {./images/} }
 \iffalse
 	\sectionfont{\fontsize{16}{15}\selectfont}
 \fi
@@ -58,6 +68,9 @@
 			% you can add more cases here as desired
 		}[\PackageError{tree}{Undefined option to tree: #1}{}]%
 	}%
+
+	\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
+	\let\endchangemargin=\endlist 
 
 % *********************** %
 
@@ -192,9 +205,9 @@
 
 	\begin{IEEEeqnarray*}{r/C/l}
 		\overline{\lambda} 	& = & \pi_{0}\lambda_{0}+\pi_{1}\lambda_{1} 												\\
-							& = & \pi_{0}(\frac{\pi_{1}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2} 
-									+ \pi_{1}(\frac{\pi_{0}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2} 						\\
-							& = & (\pi_{0}\pi_{1}^{2}+\pi_{1}\pi_{0}^{2})(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}
+							& = & \pi_{0}\left(\frac{\pi_{1}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2} 
+									+ \pi_{1}\left(\frac{\pi_{0}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2} 						\\
+							& = & (\pi_{0}\pi_{1}^{2}+\pi_{1}\pi_{0}^{2})\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}
 	\end{IEEEeqnarray*}\\
 
 	Since $\pi_{0}+\pi_{1}=1$ we have that:
@@ -208,41 +221,76 @@
 	Thus we get:
 
 	\begin{IEEEeqnarray*}{r/C/l}
-		(\pi_{0}\pi_{1}^{2}+\pi_{1}\pi_{0}^{2})(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2} & = & \pi_{0}\pi_{1}(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}
+		(\pi_{0}\pi_{1}^{2}+\pi_{1}\pi_{0}^{2})\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2} & = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}
 	\end{IEEEeqnarray*}\\
 	
 	Overall we get the following:\\
 
+	\begin{IEEEeqnarray*}{rrCl}
+		& \lambda_{0} 			& = & \left(\frac{\pi_{1}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}
+		\\*
+		\smash{\left\{
+		\IEEEstrut[16\jot]
+		\right.}
+		& \lambda_{1} 			& = & \left(\frac{\pi_{0}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}
+		\\*
+		&	\overline{\lambda} 	& = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}
+	\end{IEEEeqnarray*}
+
+	\begin{equation*}
+		\newlength{\fboxstore}
+		\setlength{\fboxstore}{\fboxsep}
+		\setlength{\fboxsep}{6pt}
+		\boxed{
+			= \left\{ \,
+			\begin{IEEEeqnarraybox}[][c]{l"s}
+				\IEEEstrut
+					\lambda_{0} = \left(\frac{\pi_{1}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}							\\
+					\lambda_{1} = \left(\frac{\pi_{0}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}							\\
+					\overline{\lambda} = \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}
+				\IEEEstrut
+			\end{IEEEeqnarraybox}
+			\right.
+		}
+		\setlength{\fboxsep}{\fboxstore}
+	\end{equation*}
+	At this point we can calculate the mutual information in the optimal case:
+	\begin{IEEEeqnarray*}{r/C/l}
+		I 	& = & H(Y) - H(Y|X)
+\\			& = & H_{b}[\lambdaWave\Delta]-\pi_{0}H_{b}(\lambda_{0}\Delta)-\pi_{1}H_{b}(\lambda_{1}\Delta)
+\\			& = & \logH{\lambdaWave}-\pi_{0}\logH{\lambda_{0}}-\pi_{1}\logH{\lambda_{1}}
+\\			& = & \logH{\pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}}
+\\*			&   &		- \> \pi_{0}\logH{\left(\frac{\pi_{1}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}}
+\\*			&   &		- \> \pi_{1}\logH{\left(\frac{\pi_{0}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}}
+\\			& = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}
+\\*			&   &		\left( 	- \log{\left[\pi_{0}\pi_{1}\left((\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})\right)^{2}\right]}		\right.
+\\*			&   &				+ \> \pi_{0}\log{\left[\left(\frac{\pi_{1}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})\right)^{2}\right]}
+\\*			&   &		\left. 	+ \> \pi_{1}\log{\left[\left(\frac{\pi_{0}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})\right)^{2}\right]}	\right)
+\\			& = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}
+\\*			&   &		\left(	- \log{[\pi_{0}\pi_{1}]} - \cancel{\log{\left[\left((\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})\right)^{2}\right]}}				\right.
+\\*			&   &				+ \> 2\pi_{0}\log{[\pi_{0}]} + \cancel{\pi_{0}\log{\left[\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})\right)^{2}\right]}}
+\\*			&   &		\left.	+ \> 2\pi_{1}\log{[\pi_{1}]} + \cancel{\pi_{1}\log{\left[\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})\right)^{2}\right]}} 	\right)
+\\			& = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2} ( - log{[\pi_{0}\pi_{1}]} + 2\pi_{0}\log{[\pi_{0}]} + \> 2\pi_{1}\log{[\pi_{1}]})
+\\			& = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2} ( - log{[\pi_{0}]} - log{[\pi_{1}]} + 2\pi_{0}\log{[\pi_{0}]} + \> 2\pi_{1}\log{[\pi_{1}]})
+\\			& = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2} ( (2\pi_{0}-1)log{[\pi_{0}]} + (2\pi_{1}-1)log{[\pi_{1}]})
+	\end{IEEEeqnarray*}
+	Again, since $\pi_{0}+\pi_{1}=1$ we have:
 	\begin{equation*}
 		= \left\{ \,
 		\begin{IEEEeqnarraybox}[][c]{l"s}
 			\IEEEstrut
-				\lambda_{0} = (\frac{\pi_{1}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}							\\
-				\lambda_{1} = (\frac{\pi_{0}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}							\\
-				\overline{\lambda} = \pi_{0}\pi_{1}(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}
+				2\pi_{0}-1=\pi_{0}+\pi_{0}-1=\pi_{0}-\pi_{1}
+\\				2\pi_{1}-1=\pi_{1}+\pi_{1}-1=\pi_{1}-\pi_{0}
 			\IEEEstrut
 		\end{IEEEeqnarraybox}
 		\right.
-		\label{eq:example_left_right1}
-	\end{equation*}\\
-
-	At this point we can calculate the mutual information in the optimal case:
-
+	\end{equation*}
+	So we get:
 	\begin{IEEEeqnarray*}{r/C/l}
-		I 	& = & H(Y) - H(Y|X)\\
-			& = & H_{b}[\lambdaWave\Delta]-\pi_{0}H_{b}(\lambda_{0}\Delta)-\pi_{1}H_{b}(\lambda_{1}\Delta) 	\\
-			& = & \logH{\lambdaWave}-\pi_{0}\logH{\lambda_{0}}-\pi_{1}\logH{\lambda_{1}} 					\\
-			& = & \logH{\pi_{0}\pi_{1}(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}} 							\\
-			&   &	- \pi_{0}\logH{(\frac{\pi_{1}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}} 						\\
-			&   &	- \pi_{1}\logH{(\frac{\pi_{0}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}} 						\\
-			& = & \pi_{0}\pi_{1}(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2} 
-					\left(
-						- \log{\pi_{0}\pi_{1}(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}}
-						+ \pi_{0}\log{(\frac{\pi_{1}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}}
-						+ \pi_{1}\log{(\frac{\pi_{0}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})^{2}}
-					\right)
-	\end{IEEEeqnarray*}\\
+		& = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2} ( (\pi_{0}-\pi_{1})(log{[\pi_{0}]} - log{[\pi_{1}]}))
+	\end{IEEEeqnarray*}
 
+	
 \end{document}
 
 
@@ -267,6 +315,40 @@
 	% 	{Use #2 with a star}
 	% 	{Use #2 without a star}%
 	% }
+
+	% Change margin:
+	% \begin{changemargin}{-1cm}{-1cm} 
+	% \end{changemargin}
+
+	% Brackets:
+
+	% Sizes of brackets:
+	% \bigl, \Bigl, \biggl, and \Biggl
+	
+	% \begin{equation*}
+	% 	\left\| \left(
+	% 	\left[ \left\{ \left|
+	% 	\left\lfloor \left\lceil
+	% 	\frac{1}{2}
+	% 	\right\rceil \right\rfloor
+	% 	\right| \right\} \right]
+	% 	\right) \right\|
+	% \end{equation*}
+
+	% \begin{IEEEeqnarray}{rCl}
+	% 	a & = & \log \left( 1 \right.
+	% 	\nonumber\\
+	% 	&& \qquad \left. + \>
+	% 	\frac{b}{2} \right)
+	% 	\label{eq:wrong_try}
+	% \end{IEEEeqnarray}
+
+	% \begin{IEEEeqnarray}{rCl}
+	% 	a & = & \log \Biggl( 1
+	% 	\nonumber\\
+	% 	&& \qquad +\>
+	% 	\frac{b}{2} \biggr)
+	% \end{IEEEeqnarray}
 
 	% IEEE
 
