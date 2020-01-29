@@ -18,7 +18,8 @@
 
 \usepackage{cancel}
 
-\interdisplaylinepenalty=10
+\interdisplaylinepenalty=100
+% \interdisplaylinepenalty=10
 % \interdisplaylinepenalty=0
 
 \usepackage[colorlinks=true,linkcolor=blue]{hyperref}
@@ -31,6 +32,8 @@
 \makeatother
 \newcommand{\subnumberinglabel}[1]{\IEEEyesnumber
 \IEEEyessubnumber*\IEEElabelanchoreqn{#1}}
+
+\usepackage[dvipsnames]{xcolor}
 
 \graphicspath{ {./images/} }
 \iffalse
@@ -146,24 +149,20 @@
 	\end{figure}
 	Since we obtained an approximation of a binary channel we may now ask how should $\l(t)$ be decided in 
 	other to maximize the mutual information of the binary channel.
-	The Entropy can be calculated as follows:
-	\begin{IEEEeqnarray*}{rCl}
-		\IEEEeqnarraymulticol{3}{l}
-		{
-			H(Y)=H_{b}[\Delta(\pi_{0}\lambda_{0} + \pi_{1}\lambda_{1})]
-		}\\*
-		H(Y|X)=\pi_{0}H_{b}(\Delta\lambda_{1}) + \pi_{1}H_{b}(\Delta\lambda_{1})
+\\	The Entropy can be calculated as follows:
+\\	\begin{IEEEeqnarray*}{rCl}
+		H(Y) 	& = & H_{b}[\Delta(\pi_{0}\lambda_{0} + \pi_{1}\lambda_{1})]
+\\		H(Y|X) 	& = & \pi_{0}H_{b}(\Delta\lambda_{1}) + \pi_{1}H_{b}(\Delta\lambda_{1})
 	\end{IEEEeqnarray*}
-	Which gives us the mutual information of the channel:
-	\begin{IEEEeqnarray*}{rCl}
+\\	Which gives us the mutual information of the channel:
+\\	\begin{IEEEeqnarray*}{rCl}
 		I(X;Y) 	& = & H(Y)-H(Y|X)
 \\				& = & H_{b}[\Delta(\pi_{0}\lambda_{0} + \pi_{1}\lambda_{1})]
 \\				&	& 	\> - \left[\pi_{0}H_{b}(\Delta\lambda_{1}) + \pi_{1}H_{b}(\Delta\lambda_{1})\right]
 		\label{eq:dont_use_multline}
 	\end{IEEEeqnarray*}
-	Since we want to maximize the mutual information, we shall compare its derivative to zero:
-\\
-	\begin{IEEEeqnarray*}{rCl}
+\\	Since we want to maximize the mutual information, we shall compare its derivative to zero:
+\\	\begin{IEEEeqnarray*}{rCl}
 		\frac{dI(X;Y)}{dl} 	& = & \log_{2}\left[\frac{1-\Delta[\pi_{0}\lambda_{0}+\pi_{1}\lambda_{1}]}{\Delta[\pi_{0}\lambda_{0}+\pi_{1}\lambda_{1}]}\right]2\Delta(\pi_{0}\sqrt{\lambda_{0}}+\pi_{1}\sqrt{\lambda_{1}})
 \\							&	& 	\> - \log_{2}\left[\frac{1-\lambda_{0}\Delta}{\lambda_{0}\Delta}\right]2\Delta\pi_{0}\sqrt{\lambda_{0}}
 \\							&	& 	\> - \log_{2}\left[\frac{1-\lambda_{1}\Delta}{\lambda_{1}\Delta}\right]2\Delta\pi_{1}\sqrt{\lambda_{1}}
@@ -174,38 +173,38 @@
 \\							&	& \> - 2\Delta\left[\log_{2}\left(\frac{1-\lambda_{0}\Delta}{\lambda_{0}\Delta}\right)\pi_{0}\sqrt{\lambda_{0}} + \log_{2}\left(\frac{1-\lambda_{1}\Delta}{\lambda_{1}\Delta}\right)\pi_{1}\sqrt{\lambda_{1}}\right]
 \\							& = & 0
 	\end{IEEEeqnarray*}
-	In the optimal case where $l=l^{*}=\lStar$, we can calculate the following expressions for the $\lambda$'s:
-	\begin{IEEEeqnarray*}{C}
-		\lambda_{i} = (l^{*}+S_{i})^{2} = (\lStar+S_{i})^{2} = (\frac{S_{0}\pi_{0} - S_{1}\pi_{1}+S_{i}(\pi_{1}-\pi_{0}))}{\pi_{1}-\pi_{0}})
+\\	In the optimal case where $l=l^{*}=\lStar$, we can calculate the following expressions for the $\lambda$'s:
+\\	\begin{IEEEeqnarray*}{C}
+		\lambda_{i} = (l^{*}+S_{i})^{2} = \left(\lStar+S_{i}\right)^{2} = \left(\frac{S_{0}\pi_{0} - S_{1}\pi_{1}+S_{i}(\pi_{1}-\pi_{0})}{\pi_{1}-\pi_{0}}\right)
 	\end{IEEEeqnarray*}
-	Which yields:
-	\begin{IEEEeqnarray*}{r/C/l}
+\\	Which yields:
+\\	\begin{IEEEeqnarray*}{r/C/l}
 		\overline{\lambda} 	& = & \pi_{0}\lambda_{0}+\pi_{1}\lambda_{1}
 \\							& = & \pi_{0}\left(\frac{\pi_{1}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}
 									+ \pi_{1}\left(\frac{\pi_{0}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}
-\\							& = & (\pi_{0}\pi_{1}^{2}+\pi_{1}\pi_{0}^{2})\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}
+\\							& = & (\pi_{0}\pi_{1}^{2}+\pi_{1}\pi_{0}^{2})\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}\IEEEyesnumber\label{eq:before_lambda_wave}
 	\end{IEEEeqnarray*}\\
-	Since $\pi_{0}+\pi_{1}=1$ we have that:
-	\begin{IEEEeqnarray*}{r/C/l}
+\\	Since $\pi_{0}+\pi_{1}=1$ we have that:
+\\	\begin{IEEEeqnarray*}{r/C/l}
 		\pi_{0}\pi_{1}^{2}+\pi_{1}\pi_{0}^{2} 	& = & \pi_{0}\pi_{1}(1-\pi_{0}) +\pi_{1}\pi_{0}^{2}				\\
 												& = & \pi_{0}\pi_{1} - \pi_{0}\pi_{1}^{2} + \pi_{0}\pi_{1}^{2}	\\
 												& = & \pi_{0}\pi_{1}
 	\end{IEEEeqnarray*}
-	Thus we get:
-	\begin{IEEEeqnarray*}{r/C/l}
-		(\pi_{0}\pi_{1}^{2}+\pi_{1}\pi_{0}^{2})\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2} & = & \pi_{0}\pi_{1}\left(\frac{S_{0}-S_{1}}{\pi_{1}-\pi_{0}}\right)^{2}
+\\	Thus we can substitute in (\ref{eq:before_lambda_wave}) and get:
+\\	\begin{IEEEeqnarray*}{r/C/l}
+		(\pi_{0}\pi_{1}^{2}+\pi_{1}\pi_{0}^{2})\left(\frac{S_{0}-S_{1}}{\pi_{1}-\pi_{0}}\right)^{2} & = & \pi_{0}\pi_{1}\left(\frac{S_{0}-S_{1}}{\pi_{1}-\pi_{0}}\right)^{2}
 	\end{IEEEeqnarray*}
-	Overall we get the following expression for the $\overline{\lambda}$'s:\\
-	\curlyBracket{
+\\	Overall we get the following expression for the $\lambda$'s:\\
+\\	\curlyBracket{
 		\lambda_{0} = \left(\frac{\pi_{1}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}
 \\		\lambda_{1} = \left(\frac{\pi_{0}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}
 \\		\overline{\lambda} = \pi_{0}\pi_{1}\left(\frac{S_{0}-S_{1}}{\pi_{1}-\pi_{0}}\right)^{2}
 	}
-	At this point we can calculate the mutual information in the optimal case:
-	\begin{IEEEeqnarray*}{r/C/l}
+\\	At this point we can derive the mutual information in the optimal case:
+\\	\begin{IEEEeqnarray*}{r/C/l}
 		I 	& = & H(Y) - H(Y|X)
-\\			& = & H_{b}[\lambdaWave\Delta]-\pi_{0}H_{b}(\lambda_{0}\Delta)-\pi_{1}H_{b}(\lambda_{1}\Delta)
-\\			& = & \logH{\lambdaWave}-\pi_{0}\logH{\lambda_{0}}-\pi_{1}\logH{\lambda_{1}}
+\\			& = & \textcolor{BrickRed}{H_{b}[\lambdaWave\Delta]-\pi_{0}H_{b}(\lambda_{0}\Delta)-\pi_{1}H_{b}(\lambda_{1}\Delta)}
+\\			& = & \textcolor{BrickRed}{\logH{\lambdaWave}-\pi_{0}\logH{\lambda_{0}}-\pi_{1}\logH{\lambda_{1}}}
 \\			& = & \logH{\pi_{0}\pi_{1}\left(\frac{S_{0}-S_{1}}{\pi_{1}-\pi_{0}}\right)^{2}}
 \\*			&	&		- \> \pi_{0}\logH{\left(\frac{\pi_{1}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}}
 \\*			&	&		- \> \pi_{1}\logH{\left(\frac{\pi_{0}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}}
@@ -219,33 +218,33 @@
 \\*			&	&		\left.	+ \> 2\pi_{1}\log{[\pi_{1}]} + \cancel{\pi_{1}\log{\left[\left(\frac{(S_{0}-S_{1})}{\pi_{1}-\pi_{0}})\right)^{2}\right]}} 	\right)
 \\			& = & \pi_{0}\pi_{1}\left(\frac{S_{0}-S_{1}}{\pi_{1}-\pi_{0}}\right)^{2} ( - log{[\pi_{0}\pi_{1}]} + 2\pi_{0}\log{[\pi_{0}]} + \> 2\pi_{1}\log{[\pi_{1}]})
 \\			& = & \pi_{0}\pi_{1}\left(\frac{S_{0}-S_{1}}{\pi_{1}-\pi_{0}}\right)^{2} ( - log{[\pi_{0}]} - log{[\pi_{1}]} + 2\pi_{0}\log{[\pi_{0}]} + \> 2\pi_{1}\log{[\pi_{1}]})
-\\			& = & \pi_{0}\pi_{1}\left(\frac{S_{0}-S_{1}}{\pi_{1}-\pi_{0}}\right)^{2} ( (2\pi_{0}-1)log{[\pi_{0}]} + (2\pi_{1}-1)log{[\pi_{1}]})
+\\			& = & \pi_{0}\pi_{1}\left(\frac{S_{0}-S_{1}}{\pi_{1}-\pi_{0}}\right)^{2} ( (2\pi_{0}-1)log{[\pi_{0}]} + (2\pi_{1}-1)log{[\pi_{1}]}) \IEEEyesnumber\label{eq:before_two_pi}
 	\end{IEEEeqnarray*}
-	Again, since $\pi_{0}+\pi_{1}=1$ we have:
-	\curlyBracket{
+\\	Again, since $\pi_{0}+\pi_{1}=1$ we have:
+\\	\curlyBracket{
 		2\pi_{0}-1=\pi_{0}+\pi_{0}-1=\pi_{0}-\pi_{1}
 \\		2\pi_{1}-1=\pi_{1}+\pi_{1}-1=\pi_{1}-\pi_{0}
 	}
-	So we get:
-	\begin{IEEEeqnarray*}{r/C/l}
+\\	So we can substitute in (\ref{eq:before_two_pi}) and get:
+\\	\begin{IEEEeqnarray*}{r/C/l}
 		& = & \pi_{0}\pi_{1}\left(\frac{S_{0}-S_{1}}{\pi_{1}-\pi_{0}}\right)^{2} ( (\pi_{0}-\pi_{1})(log{[\pi_{0}]} - log{[\pi_{1}]}))
 \\		& = & \> -\pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})^{2}}{\pi_{1}-\pi_{0}}\right) log{\left[\frac{\pi_{0}}{\pi_{1}}\right]}
 \\		& = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})^{2}}{\pi_{0}-\pi_{1}}\right) log{\left[\frac{\pi_{0}}{\pi_{1}}\right]}\IEEEyesnumber\label{eq:before_q}
 	\end{IEEEeqnarray*}
-	At this point we shall parameterize our probabilities with parameter $\g$ which will let us describe the recursive procedure in the system. That definition yields the parametrization:
-	\curlyBracketFull{\g \Longrightarrow}{
+\\	At this point we shall parameterize our probabilities with parameter $\g$ which will let us describe the recursive procedure in the system. That definition yields the parametrization:
+\\	\curlyBracketFull{\g \Longrightarrow}{
 		\pi_{0}=\piG{0}
 \\		\pi_{1}=\piG{1}
 	}
-	With that parameterization, we can now continue developing (\ref{eq:before_q}):
-	\begin{IEEEeqnarray*}{r/C/l}
+\\	With that parameterization, we can now continue developing (\ref{eq:before_q}):
+\\	\begin{IEEEeqnarray*}{r/C/l}
 		\pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})^{2}}{\pi_{0}-\pi_{1}}\right) log{\left[\frac{\pi_{0}}{\pi_{1}}\right]}
 			& = & (\piG{0})(\piG{1})\frac{(S_{0}-S_{1})^{2}}{\piG{0}-\piG{1}}log{\left(\frac{\piG{0}}{\piG{1}}\right)}
 \\			& = & \left(\frac{g}{(1+g)^{\cancel{2}}}\right)\left(\frac{(S_{0}-S_{1})^{2}}{\frac{g-1}{\cancel{1+g}}}\right)\log{(g)}
 \\			& = & \frac{g(S_{0}-S_{1})^{2}}{(1-g)(1+g)}\log{(g)}
 	\end{IEEEeqnarray*}
-	We can also recompute the entropy using that parameterization:
-	\begin{IEEEeqnarray*}{r/C/l}
+\\	We can also recompute the entropy using that parameterization:
+\\	\begin{IEEEeqnarray*}{r/C/l}
 		H(g) 	& = & H_{b}(\pi_{0},\pi_{1})
 \\				& = & \logH{\pi_{0}}+\logH{\pi_{1}}
 \\				& = & \logH{\piG{0}}+\logH{\piG{1}}
@@ -254,8 +253,8 @@
 \\				& = & \> \piG{1}\left(\logHminus{(1+g)}-\logHminus{g}\right)
 \\				& = & \> \log{(1+g)}-\piG{0}\log{g}
 	\end{IEEEeqnarray*}
-	So now we  can find the derivative of the entropy with $g$:
-	\begin{IEEEeqnarray*}{r/C/l}
+\\	So now we  can find the derivative of the entropy with $g$:
+\\	\begin{IEEEeqnarray*}{r/C/l}
 		\frac{H(g)}{dg} & = & \frac{d(\log{1+g}-\piG{0}\log{g})}{dg}
 \\						& = & \piG{1}-\frac{(1+\cancel{g})-\cancel{g}}{(1+g)^{2}}\log{g}-\frac{1}{\cancel{g}}\frac{\cancel{g}}{\left(1+g\right)}
 \\						& = & \cancel{\piG{1}}-\frac{\log{g}}{(1+g)^{2}}-\cancel{\piG{1}}
