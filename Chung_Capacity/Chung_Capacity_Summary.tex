@@ -102,6 +102,16 @@
 	\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
 	\let\endchangemargin=\endlist 
 
+	\newlength{\eqboxstorage}
+	\newcommand{\eqbox}[1]{
+		\setlength{\eqboxstorage}{\fboxsep}
+		\setlength{\fboxsep}{6pt}
+		\boxed{#1}
+		\setlength{\fboxsep}{\eqboxstorage}
+	}
+
+	\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+
 % *********************** %
 
 \begin{document}
@@ -173,7 +183,14 @@
 \\							&	& \> - 2\Delta\left[\log_{2}\left(\frac{1-\lambda_{0}\Delta}{\lambda_{0}\Delta}\right)\pi_{0}\sqrt{\lambda_{0}} + \log_{2}\left(\frac{1-\lambda_{1}\Delta}{\lambda_{1}\Delta}\right)\pi_{1}\sqrt{\lambda_{1}}\right]
 \\							& = & 0
 	\end{IEEEeqnarray*}
-\\	In the optimal case where $l=l^{*}=\lStar$, we can calculate the following expressions for the $\lambda$'s
+\\	The optimal choice for $l$ is
+:\\	\begin{equation*}
+		\eqbox{
+			l^{*} = \lStar
+		}
+	\end{equation*}
+\\	This optimal solution is numerically proven to be correct. The analytical proof will be included in a future paper
+.\\\par	In the optimal case where $l=l^{*}=\lStar$, we can calculate the following expressions for the $\lambda$'s
 :\\	\begin{IEEEeqnarray*}{C}
 		\lambda_{i} = (l^{*}+S_{i})^{2} = \left(\lStar+S_{i}\right)^{2} = \left(\frac{S_{0}\pi_{0} - S_{1}\pi_{1}+S_{i}(\pi_{1}-\pi_{0})}{\pi_{1}-\pi_{0}}\right)
 	\end{IEEEeqnarray*}
@@ -279,12 +296,31 @@
 \\					& = & g(t)+\frac{- \Delta\frac{g(S_{0}-S_{1})^{2}}{(1-g)\cancel{(1+g)}}\cancel{\log{(g)}}}{-\frac{\cancel{\log{(g)}}}{(1+g)^{\cancel{2}}}}
 \\					& = & g(t)+\left(\frac{\Delta g(1+g)}{(1-g)}\right)(S_{0}-S_{1})^{2}
 	\end{IEEEeqnarray*}
-
-% 	:\\	\begin{IEEEeqnarray*}{r/C/l}
-% 		g(t+\Delta) & = & g(t)+\frac{- \Delta I}{\frac{dH}{dg}}
-% \\					& = & g(t)+\frac{- \Delta\frac{g(S_{0}-S_{1})^{2}}{(1-g)\cancel{(1+g)}}\cancel{\log{(g)}}}{-\frac{\cancel{\log{(g)}}}{(1+g)^{\cancel{2}}}}
-% \\					& = & g(t)+\left(\frac{\Delta g(1+g)}{(1-g)}\right)(S_{0}-S_{1})^{2}
-% 	\end{IEEEeqnarray*}
+\\	We assume that $S_{0}(t)$ and $S_{1}(t)$ are constant in time and therefore we shall omit the dependency on $t$ 
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+		g(t) 	& = & g(0) \cdot{\rm{exp}\left[\int_{0}^{t} (\frac{(S_{0}-S_{1})^{2}(g(\tau)+1)}{g(\tau)-1}) \dd{\tau} \right]}
+\\				& = & g(0) \cdot{\prod_{\tau=0}^{t} \left[\frac{(S_{0}-S_{1})^{2}(g(\tau)+1)}{g(\tau)-1} \right]}
+	\end{IEEEeqnarray*}
+\\	We can now look at the change ratio
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+		\frac{g(t+\Delta)}{g(t)}	& = & \frac	{g(0) \cdot{\prod_{\tau=0}^{t+\Delta} \rm{exp} \left[\frac{(S_{0}-S_{1})^{2}(g(\tau)+1)}{g(\tau)-1} \right]}}
+												{g(0) \cdot{\prod_{\tau=0}^{t} \rm{exp} \left[\frac{(S_{0}-S_{1})^{2}(g(\tau)+1)}{g(\tau)-1} \right]}}
+\\									& = & \rm{exp} \left[\frac{(S_{0}-S_{1})^{2}(g(\tau+\Delta)+1)}{g(\tau+\Delta)-1} \right]
+	\end{IEEEeqnarray*}
+\\	Which gives
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+		\log{\left[\frac{g(t+\Delta)}{g(t)}\right]} & = & \frac{(S_{0}-S_{1})^{2}(g(\tau+\Delta)+1)}{g(\tau+\Delta)-1}\IEEEyesnumber\label{eq:derived_from_exp}
+	\end{IEEEeqnarray*}
+\\	Since by Tailor approximations for $x<<1$ it holds that $\log{(1+x)} \simeq x-\frac{1}{2}x^{2}$ we have that
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+		\log{\left[\frac{g(t+\Delta)}{g(t)}\right]} & = & \log{\left[1 + \frac{g(t+\Delta)-{g(t)}}{g(t)}\right]}
+\\													& \simeq & \frac{g(t+\Delta)-{g(t)}}{g(t)}
+	\end{IEEEeqnarray*}
+\\	Substituting  that in (\ref{eq:derived_from_exp}) gives
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+		\frac{g(t+\Delta)-{g(t)}}{g(t)} & \simeq & \frac{(S_{0}-S_{1})^{2}(g(\tau+\Delta)+1)}{g(\tau+\Delta)-1}
+	\end{IEEEeqnarray*}
+\\	Which is what we got to.
 \end{document}
 
 
