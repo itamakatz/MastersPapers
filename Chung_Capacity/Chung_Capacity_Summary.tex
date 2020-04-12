@@ -50,6 +50,7 @@
 		{$|#2_#1\rangle$}%
 	}
 
+    \newcommand{\logFrac}[2]{\log{\left[\frac{#1}{#2}\right]}}
 	\newcommand{\logH}[1]{#1\log{\left[\frac{1}{#1}\right]}}
 	\newcommand{\logHminus}[1]{#1\log{#1}}
 
@@ -97,6 +98,17 @@
 		}[\PackageError{tree}{Undefined option to tree: #1}{}]%
 	}%
 
+    \newcommand{\f}{f(t) = \pi_{0}(t)*\pi_{1}(t)}
+
+	\newcommand{\piF}[1]{%
+		\IfEqCase{#1}{%
+			{0}{\frac{1+\sqrt{1-4f(t)}}{2}}%
+			{1}{\frac{1-\sqrt{1-4f(t)}}{2}}%
+		}[\PackageError{tree}{Undefined option to tree: #1}{}]%
+	}%
+	
+	\newcommand{\inPiF}{\sqrt{1-4f(t)}}
+	
 % *********************** %
 
 	\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
@@ -249,7 +261,9 @@
 \\		& = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})^{2}}{\pi_{0}-\pi_{1}}\right) log{\left[\frac{\pi_{0}}{\pi_{1}}\right]}\IEEEyesnumber\label{eq:before_q}
 	\end{IEEEeqnarray*}
 \\	At this point we shall parameterize our probabilities with parameter $\g$ which will let us describe the recursive procedure in the system. That definition yields the parametrization
-:\\	\curlyBracketFull{\g \Longrightarrow}{
+:\\	\curlyBracketFull
+    {\g \Longrightarrow}
+    {
 		\pi_{0}=\piG{0}
 \\		\pi_{1}=\piG{1}
 	}
@@ -321,6 +335,23 @@
 		\frac{g(t+\Delta)-{g(t)}}{g(t)} & \simeq & \frac{(S_{0}-S_{1})^{2}(g(\tau+\Delta)+1)}{g(\tau+\Delta)-1}
 	\end{IEEEeqnarray*}
 \\	Which is what we got to.
+
+\pagebreak[4]
+
+An alternative approach to describe the recursive control is by presenting the following parameter of the probabilities
+:\\	\curlyBracketFull
+    {\f \Longrightarrow}
+    {
+		\pi_{0}(t)=\piF{0}
+\\		\pi_{1}(t)=\piF{1}
+	}
+\\	With this new parameterization, we can now give an alternative continuation to the Mutual Information we found in equation (\ref{eq:before_q})
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+        I & = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})^{2}}{\pi_{0}-\pi_{1}}\right) log{\left[\frac{\pi_{0}}{\pi_{1}}\right]}
+\\        & = & f(t)\frac{(S_{0}-S_{1})^{2}}{\inPiF}\logFrac{1+\inPiF}{1-\inPiF}
+	\end{IEEEeqnarray*}
+
+
 \end{document}
 
 
