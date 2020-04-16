@@ -260,205 +260,66 @@
 \\		& = & \> -\pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})^{2}}{\pi_{1}-\pi_{0}}\right) log{\left[\frac{\pi_{0}}{\pi_{1}}\right]}
 \\		& = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})^{2}}{\pi_{0}-\pi_{1}}\right) log{\left[\frac{\pi_{0}}{\pi_{1}}\right]}\IEEEyesnumber\label{eq:before_q}
 	\end{IEEEeqnarray*}
-\\	At this point we shall parameterize our probabilities with parameter $\g$ which will let us describe the recursive procedure in the system. That definition yields the parametrization
-:\\	\curlyBracketFull
-    {\g \Longrightarrow}
-    {
-		\pi_{0}=\piG{0}
-\\		\pi_{1}=\piG{1}
-	}
-\\	With that parameterization, we can now continue developing (\ref{eq:before_q})
-:\\	\begin{IEEEeqnarray*}{r/C/l}
-		\pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})^{2}}{\pi_{0}-\pi_{1}}\right) log{\left[\frac{\pi_{0}}{\pi_{1}}\right]}
-			& = & (\piG{0})(\piG{1})\frac{(S_{0}-S_{1})^{2}}{\piG{0}-\piG{1}}log{\left(\frac{\piG{0}}{\piG{1}}\right)}
-\\			& = & \left(\frac{g}{(1+g)^{\cancel{2}}}\right)\left(\frac{(S_{0}-S_{1})^{2}}{\frac{g-1}{\cancel{1+g}}}\right)\log{(g)}
-\\			& = & \frac{g(S_{0}-S_{1})^{2}}{(1-g)(1+g)}\log{(g)}
-	\end{IEEEeqnarray*}
-\\	We can also recompute the entropy using that parameterization
-:\\	\begin{IEEEeqnarray*}{r/C/l}
-		H(g) 	& = & H_{b}(\pi_{0},\pi_{1})
-\\				& = & \logH{\pi_{0}}+\logH{\pi_{1}}
-\\				& = & \logH{\piG{0}}+\logH{\piG{1}}
-\\				& = & \> - \piG{1}\left(g\log{\piG{0}}+\log{\piG{1}}\right)
-\\				& = & \> - \piG{1}\left(g\log{g}+(1+g)\log{\piG{1}}\right)
-\\				& = & \> \piG{1}\left(\logHminus{(1+g)}-\logHminus{g}\right)
-\\				& = & \> \log{(1+g)}-\piG{0}\log{g}
-	\end{IEEEeqnarray*}
-\\	So we can now find the derivative of the entropy as a function of $g$
-:\\	\begin{IEEEeqnarray*}{r/C/l}
-		\frac{H(g)}{dg} & = & \frac{d(\log{(1+g)}-\piG{0}\log{g})}{dg}
-\\						& = & \piG{1}-\frac{(1+\cancel{g})-\cancel{g}}{(1+g)^{2}}\log{g}-\frac{1}{\cancel{g}}\frac{\cancel{g}}{\left(1+g\right)}
-\\						& = & \cancel{\piG{1}}-\frac{\log{g}}{(1+g)^{2}}-\cancel{\piG{1}}
-\\						& = & \> - \frac{\log{g}}{(1+g)^{2}}
-	\end{IEEEeqnarray*}
-\\	Each step of the recursion, the entropy is lowered since we have more certainty of our choice. The quantity of the change in certainty can be describe by the following equation
-:\\	\begin{IEEEeqnarray*}{r/C/l}
-		H(g(t+\Delta)) & = & H(g(t))-\Delta I(g(t))
-	\end{IEEEeqnarray*}
-\\	If we look again at the the derivative of the entropy, we see than indeed it is negative which coincides with the fact that the certainty is increasing
-.\\\par	The definition of the derivative entropy by $g$, is defined by
-:\\	\begin{IEEEeqnarray*}{r/C/l}
-		\frac{H(g)}{dg} & = & \frac{H(g(t+\Delta))-H(g(t))}{g(t+\Delta)-g(t)}
-	\end{IEEEeqnarray*}
-\\	which yields
-:\\	\begin{IEEEeqnarray*}{r?r/C/l}
-		\Longrightarrow & g(t+\Delta) & = & g(t)+\frac{- \Delta I}{\frac{dH}{dg}} \IEEEyesnumber\label{eq:g_change}
-	\end{IEEEeqnarray*}
-\\	Since we found already the derivative and the mutual information, we can substitute them in (\ref{eq:g_change})
-:\\	\begin{IEEEeqnarray*}{r/C/l}
-		g(t+\Delta) & = & g(t)+\frac{- \Delta I}{\frac{dH}{dg}}
-\\					& = & g(t)+\frac{- \Delta\frac{g(S_{0}-S_{1})^{2}}{(1-g)\cancel{(1+g)}}\cancel{\log{(g)}}}{-\frac{\cancel{\log{(g)}}}{(1+g)^{\cancel{2}}}}
-\\					& = & g(t)+\left(\frac{\Delta g(1+g)}{(1-g)}\right)(S_{0}-S_{1})^{2}
-	\end{IEEEeqnarray*}
-\\	We assume that $S_{0}(t)$ and $S_{1}(t)$ are constant in time and therefore we shall omit the dependency on $t$ 
-:\\	\begin{IEEEeqnarray*}{r/C/l}
-		g(t) 	& = & g(0) \cdot{\rm{exp}\left[\int_{0}^{t} (\frac{(S_{0}-S_{1})^{2}(g(\tau)+1)}{g(\tau)-1}) \dd{\tau} \right]}
-\\				& = & g(0) \cdot{\prod_{\tau=0}^{t} \left[\frac{(S_{0}-S_{1})^{2}(g(\tau)+1)}{g(\tau)-1} \right]}
-	\end{IEEEeqnarray*}
-\\	We can now look at the change ratio
-:\\	\begin{IEEEeqnarray*}{r/C/l}
-		\frac{g(t+\Delta)}{g(t)}	& = & \frac	{g(0) \cdot{\prod_{\tau=0}^{t+\Delta} \rm{exp} \left[\frac{(S_{0}-S_{1})^{2}(g(\tau)+1)}{g(\tau)-1} \right]}}
-												{g(0) \cdot{\prod_{\tau=0}^{t} \rm{exp} \left[\frac{(S_{0}-S_{1})^{2}(g(\tau)+1)}{g(\tau)-1} \right]}}
-\\									& = & \rm{exp} \left[\frac{(S_{0}-S_{1})^{2}(g(\tau+\Delta)+1)}{g(\tau+\Delta)-1} \right]
-	\end{IEEEeqnarray*}
-\\	Which gives
-:\\	\begin{IEEEeqnarray*}{r/C/l}
-		\log{\left[\frac{g(t+\Delta)}{g(t)}\right]} & = & \frac{(S_{0}-S_{1})^{2}(g(\tau+\Delta)+1)}{g(\tau+\Delta)-1}\IEEEyesnumber\label{eq:derived_from_exp}
-	\end{IEEEeqnarray*}
-\\	Since by Tailor approximations for $x<<1$ it holds that $\log{(1+x)} \simeq x-\frac{1}{2}x^{2}$ we have that
-:\\	\begin{IEEEeqnarray*}{r/C/l}
-		\log{\left[\frac{g(t+\Delta)}{g(t)}\right]} & = & \log{\left[1 + \frac{g(t+\Delta)-{g(t)}}{g(t)}\right]}
-\\													& \simeq & \frac{g(t+\Delta)-{g(t)}}{g(t)}
-	\end{IEEEeqnarray*}
-\\	Substituting  that in (\ref{eq:derived_from_exp}) gives
-:\\	\begin{IEEEeqnarray*}{r/C/l}
-		\frac{g(t+\Delta)-{g(t)}}{g(t)} & \simeq & \frac{(S_{0}-S_{1})^{2}(g(\tau+\Delta)+1)}{g(\tau+\Delta)-1}
-	\end{IEEEeqnarray*}
-\\	Which is what we got to.
 
-\pagebreak[4]
-
-An alternative approach to describe the recursive control is by presenting the following parameter of the probabilities
+At this point we shall parameterize our probabilities with parameter $\f$ which will let us describe the recursive procedure in the system. That definition yields the parametrization
 :\\	\curlyBracketFull
     {\f \Longrightarrow}
     {
 		\pi_{0}(t)=\piF{0}
 \\		\pi_{1}(t)=\piF{1}
 	}
-\\	With this new parameterization, we can now give an alternative continuation to the Mutual Information we found in equation (\ref{eq:before_q})
+	
+With this new parameterization, we can now give an alternative continuation developing the Mutual Information we found in equation (\ref{eq:before_q})
 :\\	\begin{IEEEeqnarray*}{r/C/l}
-        I & = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})^{2}}{\pi_{0}-\pi_{1}}\right) log{\left[\frac{\pi_{0}}{\pi_{1}}\right]}
-\\        & = & f(t)\frac{(S_{0}-S_{1})^{2}}{\inPiF}\logFrac{1+\inPiF}{1-\inPiF}
+        I   & = & \pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})^{2}}{\pi_{0}-\pi_{1}}\right) log{\left[\frac{\pi_{0}}{\pi_{1}}\right]}
+\\          & = & f(t)\frac{(S_{0}-S_{1})^{2}}{\inPiF}\logFrac{1+\inPiF}{1-\inPiF}
 	\end{IEEEeqnarray*}
+	
+As we did with the mutual information, we can now develop the Entropy of the channel and substitute with our current parameter of interest $f(t)$
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+        H_b(\pi_0,\pi_1)    & = & \logH{\pi_0}+\logH{\pi_1}
+\\                          & = & \logH{\pi_1}+(1-\pi_0)\logFrac{1}{\pi_1}
+\\                          & = & \logFrac{1}{\pi_1}+\pi_0\logFrac{\pi_1}{\pi_0}
+\\                          & = & \logFrac{2}{1-\inPiF}+\frac{1+\inPiF}{2}\logFrac{1-\inPiF}{1+\inPiF}
+	\end{IEEEeqnarray*}
+\\ This yields the following derivative of the entropy
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+        \frac{dH(f(t))}{df(t)}    & = & -\frac{\logFrac{1-\inPiF}{1+\inPiF}}{\inPiF}
+	\end{IEEEeqnarray*}
+	
+\pagebreak[2]
 
-
+Each step of the recursion, the current mutual information gives us more knowledge of the system and thus lowers the current entropy. This is because each step in time we become more certain of our hypothesis choice. The quantity of the change in certainty can be described by the following equation
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+		H(f(t+\Delta))  & = & H(f(t))-\Delta I(f(t))\IEEEyesnumber\label{eq:f_I_H_delta_change}
+	\end{IEEEeqnarray*}
+\\ The definition of the derivative entropy by $f$, is defined by
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+		\frac{H(f)}{df} & = & \frac{H(f(t+\Delta))-H(f(t))}{f(t+\Delta)-f(t)}
+	\end{IEEEeqnarray*}
+\\	which using equation (\ref{eq:f_I_H_delta_change}) yields
+:\\	\begin{IEEEeqnarray*}{r?r/C/l}
+		\Longrightarrow & f(t+\Delta) & = & f(t)+\frac{-\Delta I}{\frac{dH}{df}} \IEEEyesnumber\label{eq:f_change}
+	\end{IEEEeqnarray*}
+\\ Having developed the mutual information and the entropy's derivative we can substitute them in (\ref{eq:f_change})
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+		f(t+\Delta) & = & f(t)+\frac{-\Delta I}{\frac{dH}{df}}
+\\                  & = & f(t)+\frac{-\Delta f(t)\frac{(S_{0}-S_{1})^{2}}{\cancel{\inPiF}}\cancel{\logFrac{1+\inPiF}{1-\inPiF}}}{-\frac{\cancel{\logFrac{1-\inPiF}{1+\inPiF}}}{\cancel{\inPiF}}}
+\\                  & = & f(t)-\Delta f(t)(S_{0}-S_{1})^2
+\\                  & = & f(t)(1-\Delta (S_{0}-S_{1})^2)
+	\end{IEEEeqnarray*}
+\\ Which result in the following differential equation
+:\\	\begin{IEEEeqnarray*}{r?r/C/l}
+		\Rightarrow & f(t+\Delta)-f(t) & = & -\Delta f(t)(S_{0}-S_{1})^2
+\\      \Rightarrow & \frac{f(t+\Delta)-f(t)}{\Delta} & = & -f(t)(S_{0}-S_{1})^2
+\\		\Rightarrow & \frac{df(t)}{dt} & = & -f(t)(S_{0}-S_{1})^2
+	\end{IEEEeqnarray*}
+\\ which yields the following solution
+\\	\begin{equation}
+    	\eqbox{
+    		\begin{IEEEeqnarraybox}{r/C/l}
+    			f(t) & = & f(0)e^{-(S_{0}-S_{1})^2f(t)}\IEEEyesnumber\label{eq:f_explicit_solution}
+    		\end{IEEEeqnarraybox}
+    	}
+    \end{equation}
 \end{document}
-
-
-% *** Notes *** %
-
-% \begin{Notes}
-	% Cool macro: \newcommand{\divbytwo}[1]{\frac{#1}{2}}
-	
-	% \quad - tab
-	% \qquad = big tab
-	
-	% \usepackage{xparse}
-	% \NewDocumentCommand\TwoArgs{mm}{Text using #1 and #2}
-	% \NewDocumentCommand\OneOptOfTwo{O{}mm}%
-	% {Text with #2, #3 and perhaps #1}
-	% \NewDocumentCommand\OneOptOfTwoWithTest{om}{%
-	% 	\IfNoValueTF{#1}
-	% 	{Do stuff with #2 only}
-	% 	{Do stuff with #1 and #2}%
-	% }
-	% \NewDocumentCommand\StarThenArg{sm}{%
-	% 	\IfBooleanTF#1
-	% 	{Use #2 with a star}
-	% 	{Use #2 without a star}%
-	% }
-
-	% Change margin:
-	% \begin{changemargin}{-1cm}{-1cm} 
-	% \end{changemargin}
-
-	% Brackets:
-
-	% Sizes of brackets:
-	% \bigl, \Bigl, \biggl, and \Biggl
-	
-	% \begin{equation*}
-	% 	\left\| \left(
-	% 	\left[ \left\{ \left|
-	% 	\left\lfloor \left\lceil
-	% 	\frac{1}{2}
-	% 	\right\rceil \right\rfloor
-	% 	\right| \right\} \right]
-	% 	\right) \right\|
-	% \end{equation*}
-
-	% \begin{IEEEeqnarray}{rCl}
-	% 	a & = & \log \left( 1 \right.
-	% 	\nonumber\\
-	% 	&& \qquad \left. + \>
-	% 	\frac{b}{2} \right)
-	% 	\label{eq:wrong_try}
-	% \end{IEEEeqnarray}
-
-	% \begin{IEEEeqnarray}{rCl}
-	% 	a & = & \log \Biggl( 1
-	% 	\nonumber\\
-	% 	&& \qquad +\>
-	% 	\frac{b}{2} \biggr)
-	% \end{IEEEeqnarray}
-
-	% IEEE
-
-		% \> manually unary to binary
-		% {} manually binary to unary
-
-		% Spaces:
-		% added by . and / and ? and " in increasing order.
-
-		% hyperlinks:
-
-		% We have
-		% \begin{IEEEeqnarray}{rCl}
-		% 	\subnumberinglabel{eq:block2}
-		% 	a & = & b + c
-		% 	\label{eq:block2_eq1}\\
-		% 	& = & d + e
-		% 	\label{eq:block2_eq2}
-		% \end{IEEEeqnarray}
-		% and
-		% \begin{IEEEeqnarray}{c}
-		% 	\IEEEyessubnumber*
-		% 	f = g - h + i
-		% 	\label{eq:block2_eq3}
-		% \end{IEEEeqnarray}
-	
-		% lala (\ref{eq:block2_eq3}) haha\\
-
-	% Frame:
-
-	% \begin{equation*}
-	% 	\newlength{\fboxstore}
-	% 	\setlength{\fboxstore}{\fboxsep}
-	% 	\setlength{\fboxsep}{6pt}
-	% 	\boxed{
-	% 		= \left\{ \,
-	% 		\begin{IEEEeqnarraybox}[][c]{l"s}
-	% 			\IEEEstrut
-	% 				\lambda_{0} = \left(\frac{\pi_{1}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}							\\
-	% 				\lambda_{1} = \left(\frac{\pi_{0}(S_{0}-S_{1})}{\pi_{1}-\pi_{0}}\right)^{2}							\\
-	% 				\overline{\lambda} = \pi_{0}\pi_{1}\left(\frac{S_{0}-S_{1}}{\pi_{1}-\pi_{0}}\right)^{2}
-	% 			\IEEEstrut
-	% 		\end{IEEEeqnarraybox}
-	% 		\right.
-	% 	}
-	% 	\setlength{\fboxsep}{\fboxstore}
-	% \end{equation*}
-
-% \end{Notes}
-
-% ************* %
