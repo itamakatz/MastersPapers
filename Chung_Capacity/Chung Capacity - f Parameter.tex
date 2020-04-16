@@ -54,7 +54,7 @@
 
     \newcommand{\logFrac}[2]{\log{\left[\frac{#1}{#2}\right]}}
 	\newcommand{\logH}[1]{#1\log{\left[\frac{1}{#1}\right]}}
-	\newcommand{\logHminus}[1]{-#1\log{#1}}
+	\newcommand{\logHshort}[1]{#1\log{(#1)}}
 	\newcommand{\binatyEntropy}[1]{\logH{#1}+\logH{(1-#1)}}
 
 	\newcommand{\lambdaWave}{\overline{\lambda}}
@@ -220,7 +220,6 @@
 	
 \vspace{5mm}	
 \centerline{* * *}
-% \starbreak
 \vspace{5mm}
 
 In the optimal case where $l=l^{*}=\lStar$, we can calculate the following expressions for the $\lambda$'s
@@ -264,23 +263,25 @@ will have only one relevant part of the entropy definition, since $z\log(z)=0$ i
 \end{IEEEeqnarray*}
 Using this observation we can now go on developing the mutual information
 :\\	\begin{IEEEeqnarray*}{r/C/l}
-		I 	& = & H(Y) - H(Y|X)
-\\			& = & H_{b}[\lambdaWave\Delta]-\pi_{0}H_{b}(\lambda_{0}\Delta)-\pi_{1}H_{b}(\lambda_{1}\Delta)
-\\			& = & \textcolor{BrickRed}{\logH{\lambdaWave}-\pi_{0}\logH{\lambda_{0}}-\pi_{1}\logH{\lambda_{1}}}
-\\			& = & \logH{\pi_{0}\pi_{1}\left(\frac{\sDiff}{\piDiff{1}}\right)^{2}}
-\\			&	&		-\> \pi_{0}\logH{\left(\frac{\pi_{1}(\sDiff)}{\piDiff{1}}\right)^{2}}
-\\			&	&		-\> \pi_{1}\logH{\left(\frac{\pi_{0}(\sDiff)}{\piDiff{1}}\right)^{2}}
-\\			& = & \pi_{0}\pi_{1}\left(\frac{\sDiff}{\piDiff{1}}\right)^{2}
-\\			&	&		\left( 	- \log{\left[\pi_{0}\pi_{1}\left((\frac{(\sDiff)}{\piDiff{1}})\right)^{2}\right]}		\right.
-\\			&	&				+\> \pi_{0}\log{\left[\left(\frac{\pi_{1}(\sDiff)}{\piDiff{1}})\right)^{2}\right]}
-\\			&	&		\left. 	+\> \pi_{1}\log{\left[\left(\frac{\pi_{0}(\sDiff)}{\piDiff{1}})\right)^{2}\right]}	\right)
-\\			& = & \pi_{0}\pi_{1}\left(\frac{\sDiff}{\piDiff{1}}\right)^{2}
-\\			&	&		\left(	- \log{[\pi_{0}\pi_{1}]} - \cancel{\log{\left[\left((\frac{(\sDiff)}{\piDiff{1}})\right)^{2}\right]}}				\right.
-\\			&	&				+\> 2\pi_{0}\log{[\pi_{0}]} + \cancel{\pi_{0}\log{\left[\left(\frac{(\sDiff)}{\piDiff{1}})\right)^{2}\right]}}
-\\			&	&		\left.	+\> 2\pi_{1}\log{[\pi_{1}]} + \cancel{\pi_{1}\log{\left[\left(\frac{(\sDiff)}{\piDiff{1}})\right)^{2}\right]}} 	\right)
-\\			& = & \pi_{0}\pi_{1}\left(\frac{\sDiff}{\piDiff{1}}\right)^{2} ( - log{[\pi_{0}\pi_{1}]} + 2\pi_{0}\log{[\pi_{0}]} + 2\pi_{1}\log{[\pi_{1}]})
-\\			& = & \pi_{0}\pi_{1}\left(\frac{\sDiff}{\piDiff{1}}\right)^{2} ( - log{[\pi_{0}]} - log{[\pi_{1}]} + 2\pi_{0}\log{[\pi_{0}]} + 2\pi_{1}\log{[\pi_{1}]})
-\\			& = & \pi_{0}\pi_{1}\left(\frac{\sDiff}{\piDiff{1}}\right)^{2} ( (2\pi_{0}-1)log{[\pi_{0}]} + (2\pi_{1}-1)log{[\pi_{1}]}) \IEEEyesnumber\label{eq:before_two_pi}
+		I 	& = 		& H(Y) - H(Y|X)
+\\			& = 		& H_{b}[\lambdaWave\Delta]-\pi_{0}H_{b}(\lambda_{0}\Delta)-\pi_{1}H_{b}(\lambda_{1}\Delta)
+\\			& \simeq 	& -\> \logHshort{\lambdaWave\Delta}+\pi_{0}\logHshort{\lambda_{0}\Delta}+\pi_{1}\logHshort{\lambda_{1}\Delta}
+\\			& = 		& -\> \log(\Delta)\left[\cancel{-\lambdaWave+\lambda_{0}\pi_{0}+\lambda_{1}\pi_{1}}\right]+\Delta(-\logHshort{\lambdaWave}+\pi_{0}\logHshort{\lambda_{0}}+\pi_{}\logHshort{\lambda_{1}})
+\\			& = 		& \Delta(-\logHshort{\lambdaWave}+\pi_{0}\logHshort{\lambda_{0}}+\pi_{}\logHshort{\lambda_{1}})
+\\			& = 		& \Delta\logH{\pi_{0}\pi_{1}\left(\frac{\sDiff}{\piDiff{1}}\right)^{2}}
+\\			&			&		-\> \pi_{0}\logH{\left(\frac{\pi_{1}(\sDiff)}{\piDiff{1}}\right)^{2}}
+\\			&			&		-\> \pi_{1}\logH{\left(\frac{\pi_{0}(\sDiff)}{\piDiff{1}}\right)^{2}}
+\\			& = 		& \Delta\pi_{0}\pi_{1}\left(\frac{\sDiff}{\piDiff{1}}\right)^{2}
+\\			&			&		\left( 	- \log{\left[\pi_{0}\pi_{1}\left((\frac{(\sDiff)}{\piDiff{1}})\right)^{2}\right]}		\right.
+\\			&			&				+\> \pi_{0}\log{\left[\left(\frac{\pi_{1}(\sDiff)}{\piDiff{1}})\right)^{2}\right]}
+\\			&			&		\left. 	+\> \pi_{1}\log{\left[\left(\frac{\pi_{0}(\sDiff)}{\piDiff{1}})\right)^{2}\right]}	\right)
+\\			& = 		& \Delta\pi_{0}\pi_{1}\left(\frac{\sDiff}{\piDiff{1}}\right)^{2}
+\\			&			&		\left(	- \log{[\pi_{0}\pi_{1}]} - \cancel{\log{\left[\left((\frac{(\sDiff)}{\piDiff{1}})\right)^{2}\right]}}				\right.
+\\			&			&				+\> 2\pi_{0}\log{[\pi_{0}]} + \cancel{\pi_{0}\log{\left[\left(\frac{(\sDiff)}{\piDiff{1}})\right)^{2}\right]}}
+\\			&			&		\left.	+\> 2\pi_{1}\log{[\pi_{1}]} + \cancel{\pi_{1}\log{\left[\left(\frac{(\sDiff)}{\piDiff{1}})\right)^{2}\right]}} 	\right)
+\\			& = 		& \Delta\pi_{0}\pi_{1}\left(\frac{\sDiff}{\piDiff{1}}\right)^{2} ( - log{[\pi_{0}\pi_{1}]} + 2\pi_{0}\log{[\pi_{0}]} + 2\pi_{1}\log{[\pi_{1}]})
+\\			& = 		& \Delta\pi_{0}\pi_{1}\left(\frac{\sDiff}{\piDiff{1}}\right)^{2} ( - log{[\pi_{0}]} - log{[\pi_{1}]} + 2\pi_{0}\log{[\pi_{0}]} + 2\pi_{1}\log{[\pi_{1}]})
+\\			& = 		& \Delta\pi_{0}\pi_{1}\left(\frac{\sDiff}{\piDiff{1}}\right)^{2} ( (2\pi_{0}-1)log{[\pi_{0}]} + (2\pi_{1}-1)log{[\pi_{1}]}) \IEEEyesnumber\label{eq:before_two_pi}
 	\end{IEEEeqnarray*}
 \\	Again, since $\pi_{0}+\pi_{1}=1$ we have
 :\\	\curlyBracket{
@@ -289,9 +290,9 @@ Using this observation we can now go on developing the mutual information
 	}
 \\	So we can substitute in (\ref{eq:before_two_pi}) and get
 :\\	\begin{IEEEeqnarray*}{r/C/l}
-		& = & \pi_{0}\pi_{1}\frac{(\sDiff)^{2}}{(\piDiff{1})^{\cancel{2}}}\cancel{(\piDiff{0})}(log{[\pi_{0}]}-log{[\pi_{1}]})
-\\		& = & -\> \pi_{0}\pi_{1}\left(\frac{(\sDiff)^{2}}{\piDiff{1}}\right) log{\left[\frac{\pi_{0}}{\pi_{1}}\right]}
-\\		& = & \pi_{0}\pi_{1}\left(\frac{(\sDiff)^{2}}{\piDiff{0}}\right) log{\left[\frac{\pi_{0}}{\pi_{1}}\right]}\IEEEyesnumber\label{eq:before_q}
+		& = & \Delta\pi_{0}\pi_{1}\frac{(\sDiff)^{2}}{(\piDiff{1})^{\cancel{2}}}\cancel{(\piDiff{0})}(log{[\pi_{0}]}-log{[\pi_{1}]})
+\\		& = & -\> \Delta\pi_{0}\pi_{1}\left(\frac{(\sDiff)^{2}}{\piDiff{1}}\right) log{\left[\frac{\pi_{0}}{\pi_{1}}\right]}
+\\		& = & \Delta\pi_{0}\pi_{1}\left(\frac{(\sDiff)^{2}}{\piDiff{0}}\right) log{\left[\frac{\pi_{0}}{\pi_{1}}\right]}\IEEEyesnumber\label{eq:before_q}
 	\end{IEEEeqnarray*}
 
 At this point we shall parameterize our probabilities with parameter $\f$ which will let us describe the recursive procedure in the system. That definition yields the parametrization
