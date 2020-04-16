@@ -145,10 +145,14 @@
 \begin{document}
 
 	\begin{center}
+	    \sectionfont{\LARGE\selectfont}
 		\section*{Signal detection over an optical channel}
 	\end{center}
-
 	\vspace{0.3cm}
+
+\sectionfont{\Large\selectfont}
+
+\section{Introduction}
 
 	Given an optical channel, a signal on that channel can be described as a coherent state denoted by \coherent{S} where  $S\in\mathbb{C}$
 .\\\par
@@ -172,12 +176,12 @@
 	the two possible hypotheses denoted by $\pi_1(t), \pi_2(t)$ are updated after each step of time $\Delta$ to yield 
 	$\pi_1(t+\Delta), \pi_2(t+\Delta)$
 .\\\par
-	At this point, by making $\Delta$ arbitrarily small we can expect the current Poisson process to return
+At this point, by making $\Delta$ arbitrarily small we can expect the current Poisson process to return
 :\\	\curlyBracket{
 		0 & w.p. $(1-\lambda_i\Delta)$
 \\		1 & w.p. $(\lambda_i\Delta)$
 	}
-	Which can be thought of as the following binary channel (Figure \ref{fig:channel})
+Which can be thought of as the following binary channel (Figure \ref{fig:channel})
 :\pagebreak[2]
 	\begin{figure}[H]
 		\centering
@@ -185,8 +189,9 @@
 		\caption{Equivalent binary channel over time $\Delta$}
 		\label{fig:channel}
 	\end{figure}
-	Since we obtained an approximation of a binary channel we may now ask how should $l(t)$ be decided in 
-	other to maximize the mutual information of the binary channel
+\section{Optimal local signal}	
+Since we obtained an approximation of a binary channel we may now ask how should $l(t)$ be decided in 
+other to maximize the mutual information of the binary channel
 .\\\par	The Entropy can be calculated as follows
 :\\	\begin{IEEEeqnarray*}{r/C/l}
 		H(Y) 	& = & H_{b}[\Delta(\pi_{0}\lambda_{0} + \pi_{1}\lambda_{1})]
@@ -218,9 +223,13 @@
 	\end{equation*}
 \\	This optimal solution is numerically proven to be correct. The analytical proof will be included in a future paper.
 	
-\vspace{5mm}	
-\centerline{* * *}
-\vspace{5mm}
+% \vspace{5mm}	
+% \centerline{* * *}
+% \vspace{5mm}
+
+\section{Explicit equation for the control system in the optimal case}
+
+\subsection{Implication of the optimal case}
 
 In the optimal case where $l=l^{*}=\lStar$, we can calculate the following expressions for the $\lambda$'s
 :\\	\begin{IEEEeqnarray*}{r/C/l}
@@ -261,6 +270,7 @@ will have only one relevant part of the entropy definition, since $z\log(z)=0$ i
 	H_{b}(\Delta z) & = & \binatyEntropy{\Delta z}
 \\					& \simeq & \logH{\Delta z}
 \end{IEEEeqnarray*}
+\subsection{The mutual information}
 Using this observation we can now go on developing the mutual information
 :\\	\begin{IEEEeqnarray*}{r/C/l}
 		I 	& = 		& H(Y) - H(Y|X)
@@ -292,8 +302,10 @@ Using this observation we can now go on developing the mutual information
 :\\	\begin{IEEEeqnarray*}{r/C/l}
 		& = & \Delta\pi_{0}\pi_{1}\frac{(\sDiff)^{2}}{(\piDiff{1})^{\cancel{2}}}\cancel{(\piDiff{0})}(log{[\pi_{0}]}-log{[\pi_{1}]})
 \\		& = & -\> \Delta\pi_{0}\pi_{1}\left(\frac{(\sDiff)^{2}}{\piDiff{1}}\right) log{\left[\frac{\pi_{0}}{\pi_{1}}\right]}
-\\		& = & \Delta\pi_{0}\pi_{1}\left(\frac{(\sDiff)^{2}}{\piDiff{0}}\right) log{\left[\frac{\pi_{0}}{\pi_{1}}\right]}\IEEEyesnumber\label{eq:before_q}
+\\		& = & \Delta\pi_{0}\pi_{1}\left(\frac{(\sDiff)^{2}}{\piDiff{0}}\right) log{\left[\frac{\pi_{0}}{\pi_{1}}\right]}\IEEEyesnumber\label{eq:before_f}
 	\end{IEEEeqnarray*}
+	
+\subsection{Parametrization function of the probabilities}
 
 At this point we shall parameterize our probabilities with parameter $\f$ which will let us describe the recursive procedure in the system. That definition yields the parametrization
 :\\	\curlyBracketFull
@@ -303,7 +315,7 @@ At this point we shall parameterize our probabilities with parameter $\f$ which 
 \\		\pi_{1}(t)=\piF{1}
 	}
 	
-With this new parameterization, we can now give an alternative continuation developing the Mutual Information we found in equation (\ref{eq:before_q})
+With this new parameterization, we can now give an alternative continuation developing the Mutual Information we found in equation (\ref{eq:before_f})
 :\\	\begin{IEEEeqnarray*}{r/C/l}
         I   & = & \pi_{0}\pi_{1}\left(\frac{(\sDiff)^{2}}{\piDiff{0}}\right) log{\left[\frac{\pi_{0}}{\pi_{1}}\right]}
 \\          & = & f(t)\frac{(\sDiff)^{2}}{\inPiF}\logFrac{1+\inPiF}{1-\inPiF}
@@ -348,12 +360,106 @@ Each step of the recursion, the current mutual information gives us more knowled
 \\      \Rightarrow & \frac{f(t+\Delta)-f(t)}{\Delta} & = & -f(t)(\sDiff)^2
 \\		\Rightarrow & \frac{df(t)}{dt} & = & -f(t)(\sDiff)^2
 	\end{IEEEeqnarray*}
-\\ which yields the following solution
+\\ which yields the solution
 \\	\begin{equation}
     	\eqbox{
     		\begin{IEEEeqnarraybox}{r/C/l}
     			f(t) & = & f(0)e^{-(\sDiff)^2f(t)}\IEEEyesnumber\label{eq:f_explicit_solution}
     		\end{IEEEeqnarraybox}
     	}
-    \end{equation}
+	\end{equation}
+	
+% \vspace{5mm}	
+% \centerline{* * * * *}
+% \vspace{5mm}
+\pagebreak
+
+\section{Alternative derivation}
+\subsection{Original proposed parametrization}
+
+It is worth mentioning the original parametrization proposed in the Chung Capacity paper. Thus the following section will develop the solution derived there.
+\linebreak
+
+We shall parameterize our probabilities with parameter $\g$ which will let us describe the recursive procedure in the system. That definition yields the parametrization
+:\\	\curlyBracketFull
+    {\g \Longrightarrow}
+    {
+		\pi_{0}=\piG{0}
+\\		\pi_{1}=\piG{1}
+	}
+\\	With that parameterization, we can now continue developing (\ref{eq:before_f})
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+		\pi_{0}\pi_{1}\left(\frac{(S_{0}-S_{1})^{2}}{\pi_{0}-\pi_{1}}\right) log{\left[\frac{\pi_{0}}{\pi_{1}}\right]}
+			& = & (\piG{0})(\piG{1})\frac{(S_{0}-S_{1})^{2}}{\piG{0}-\piG{1}}log{\left(\frac{\piG{0}}{\piG{1}}\right)}
+\\			& = & \left(\frac{g}{(1+g)^{\cancel{2}}}\right)\left(\frac{(S_{0}-S_{1})^{2}}{\frac{g-1}{\cancel{1+g}}}\right)\log{(g)}
+\\			& = & \frac{g(S_{0}-S_{1})^{2}}{(1-g)(1+g)}\log{(g)}
+	\end{IEEEeqnarray*}
+\\	We can also recompute the entropy using this parameterization
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+		H(g) 	& = & H_{b}(\pi_{0},\pi_{1})
+\\				& = & \logH{\pi_{0}}+\logH{\pi_{1}}
+\\				& = & \logH{\piG{0}}+\logH{\piG{1}}
+\\				& = & \> - \piG{1}\left(g\log{\piG{0}}+\log{\piG{1}}\right)
+\\				& = & \> - \piG{1}\left(g\log{g}+(1+g)\log{\piG{1}}\right)
+\\				& = & \> \piG{1}\left(\logHshort{(1+g)}-\logHshort{g}\right)
+\\				& = & \> \log{(1+g)}-\piG{0}\log{g}
+	\end{IEEEeqnarray*}
+\\	So we can now find the derivative of the entropy as a function of $g$
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+		\frac{H(g)}{dg} & = & \frac{d(\log{(1+g)}-\piG{0}\log{g})}{dg}
+\\						& = & \piG{1}-\frac{(1+\cancel{g})-\cancel{g}}{(1+g)^{2}}\log{g}-\frac{1}{\cancel{g}}\frac{\cancel{g}}{\left(1+g\right)}
+\\						& = & \cancel{\piG{1}}-\frac{\log{g}}{(1+g)^{2}}-\cancel{\piG{1}}
+\\						& = & \> - \frac{\log{g}}{(1+g)^{2}}
+	\end{IEEEeqnarray*}
+\\	Each step of the recursion, the entropy is lowered since we have more certainty of our choice. The quantity of the change in certainty can be describe by the following equation
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+		H(g(t+\Delta)) & = & H(g(t))-\Delta I(g(t))\IEEEyesnumber\label{eq:I_H_delta_change}
+	\end{IEEEeqnarray*}
+\\	If we look again at the the derivative of the entropy, we see than indeed it is negative which coincides with the fact that the certainty is increasing
+.\\\par	The definition of the derivative entropy by $g$, is defined by
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+		\frac{H(g)}{dg} & = & \frac{H(g(t+\Delta))-H(g(t))}{g(t+\Delta)-g(t)}
+	\end{IEEEeqnarray*}
+\\	which yields
+:\\	\begin{IEEEeqnarray*}{r?r/C/l}
+		\Longrightarrow & g(t+\Delta) & = & g(t)+\frac{- \Delta I}{\frac{dH}{dg}} \IEEEyesnumber\label{eq:g_change}
+	\end{IEEEeqnarray*}
+\\	Since we found already the derivative and the mutual information, we can substitute them in (\ref{eq:g_change})
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+		g(t+\Delta) & = & g(t)+\frac{-\Delta I}{\frac{dH}{dg}}
+\\					& = & g(t)+\frac{-\Delta\frac{g(S_{0}-S_{1})^{2}}{(1-g)\cancel{(1+g)}}\cancel{\log{(g)}}}{-\frac{\cancel{\log{(g)}}}{(1+g)^{\cancel{2}}}}
+\\					& = & g(t)+\left(\frac{\Delta g(1+g)}{(1-g)}\right)(S_{0}-S_{1})^{2}
+\end{IEEEeqnarray*}
+Or
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+		\frac{g(t+\Delta)}{g(t)} & = & 1+\left(\frac{\Delta(1+g)}{(1-g)}\right)(S_{0}-S_{1})^{2}\IEEEyesnumber\label{eq:g_delta_ratio}
+\end{IEEEeqnarray*}
+\\	By Tailor approximations, for $x<<1$ it holds that $\log{(1+x)} \simeq x-\frac{1}{2}x^{2}$. So by setting $x=\left(\frac{\Delta(1+g)}{(1-g)}\right)(S_{0}-S_{1})^{2}$ we have that
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+		\log{\left[1 + \left(\frac{\Delta(1+g)}{(1-g)}\right)(S_{0}-S_{1})^{2}\right]} & = & \log{\left[\frac{g(t+\Delta)}{g(t)}\right]}
+\\		& = & \log{\left[1+\frac{g(t+\Delta)-g(t)}{g(t)}\right]}
+\\													& \simeq & \frac{g(t+\Delta)-{g(t)}}{g(t)}\IEEEyesnumber\label{eq:tailor_approximation}
+\end{IEEEeqnarray*}
+\\	Applying (\ref{eq:tailor_approximation}) to equation (\ref{eq:g_delta_ratio}) and assuming that $S_{0}(t)$ and $S_{1}(t)$ are constant in time and therefore we can omit their dependency on $t$ we get that
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+       1+\left(\frac{\Delta(1+g)}{(1-g)}\right)(S_{0}-S_{1})^{2} & = & \rm{exp}\left[\frac{g(t+\Delta)-{g(t)}}{g(t)}\right]
+\\    	g(t) 	& = & g(0) \cdot{\rm{exp}\left[\int_{0}^{t} (\frac{(S_{0}-S_{1})^{2}(g(\tau)+1)}{g(\tau)-1}) \dd{\tau} \right]}
+\\				& = & g(0) \cdot{\prod_{\tau=0}^{t} \rm{exp}\left[\frac{(S_{0}-S_{1})^{2}(g(\tau)+1)}{g(\tau)-1} \right]}
+\end{IEEEeqnarray*}
+\\	We can now look at the change ratio
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+		\frac{g(t+\Delta)}{g(t)}	& = & \frac	{g(0) \cdot{\prod_{\tau=0}^{t+\Delta} \rm{exp} \left[\frac{(S_{0}-S_{1})^{2}(g(\tau)+1)}{g(\tau)-1} \right]}}
+												{g(0) \cdot{\prod_{\tau=0}^{t} \rm{exp} \left[\frac{(S_{0}-S_{1})^{2}(g(\tau)+1)}{g(\tau)-1} \right]}}
+\\									& = & \rm{exp} \left[\frac{(S_{0}-S_{1})^{2}(g(\tau+\Delta)+1)}{g(\tau+\Delta)-1} \right]
+\end{IEEEeqnarray*}
+\\	Which gives
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+		\log{\left[\frac{g(t+\Delta)}{g(t)}\right]} & = & \frac{(S_{0}-S_{1})^{2}(g(\tau+\Delta)+1)}{g(\tau+\Delta)-1}\IEEEyesnumber\label{eq:derived_from_exp}
+\end{IEEEeqnarray*}
+\\	Substituting  that in (\ref{eq:derived_from_exp}) gives
+:\\	\begin{IEEEeqnarray*}{r/C/l}
+		\frac{g(t+\Delta)-{g(t)}}{g(t)} & \simeq & \frac{(S_{0}-S_{1})^{2}(g(\tau+\Delta)+1)}{g(\tau+\Delta)-1}
+\end{IEEEeqnarray*}
+\\	Which is what we got to.
+
 \end{document}
